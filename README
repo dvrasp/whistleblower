@@ -1,7 +1,28 @@
 A bot which can randomly check a website links and forms for errors.
 
-python proto.py http://example.com
-python proto.py --html=w3c http://example.com
+$ python proto.py http://example.com
+$ python proto.py --html=w3c http://example.com
+$ python proto.py --stress http://example.com.localdomain
 
+$ python proto.py --help
+Usage: proto.py [options] start_url
 
-load_test_proto : wip
+Options:
+  -h, --help            show this help message and exit
+  -q, --quiet           don't print many status messages to stdout
+  --silent              output as least as possible
+  -d, --debug           print status messages to stdout
+  -t SURF_TIMER, --timer=SURF_TIMER
+                        time between requests
+  -c MAX_COUNT, --max-count=MAX_COUNT
+                        max number of page loads
+  --check-dash          report # links
+  --forms               use forms
+  --links               follow links
+  --html=HTML_VALIDATOR
+                        html validation method (use no to disable)
+  --cookie=COOKIE       cookie (name=value)
+  -o, --once            visit only once
+  --threads=THREADS     bots to run in parallel
+  --stress              default parameters for load test
+  --heavy               default parameters for load test

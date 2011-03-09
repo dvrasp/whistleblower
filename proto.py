@@ -257,17 +257,17 @@ class WhistleBlower(WebRobot):
                  
 def main():
     from optparse import OptionParser
-
-    parser = OptionParser()
+    
+    parser = OptionParser(usage="%prog [options] start_url")
     parser.add_option("-q", "--quiet",
                       action="store_false", dest="verbose", default=True,
-                      help="print many status messages to stdout")
+                      help="don't print many status messages to stdout")
     parser.add_option("--silent",
                       action="store_true", dest="silent", default=False,
                       help="output as least as possible")
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
-                      help="don't print status messages to stdout")
+                      help="do print status messages to stdout")
     parser.add_option("-t", "--timer", type="float",
                       dest="surf_timer", default=0,
                       help="time between requests")
