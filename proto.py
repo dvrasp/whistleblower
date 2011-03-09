@@ -3,11 +3,12 @@
 import mechanize
 from mechanize import Link
 from ClientForm import HTMLForm as Form
+import cookielib
 import threading, random, time, re
 import logging
 import _elementtidy
 
-import urllib2
+import urllib2, urlparse
 import time
 
 class DeadEnd(Exception):
@@ -21,6 +22,23 @@ class WebRobot(threading.Thread):
         #threading.Thread.__init__(self)
         self.options = options
         self.browser = mechanize.Browser()
+        cj = cookielib.LWPCookieJar()
+        if options.cookie and start_url:
+            name, value = map(lambda s:s.strip(),
+                              options.cookie.split("="))
+            domain = urlparse.urlparse(start_url).netloc
+            ck = cookielib.Cookie(version=0, name=name, value=value,
+                                  port=None, port_specified=False,
+                                  domain=domain,
+                                  domain_specified=False,
+                                  domain_initial_dot=False,
+                                  path='/', path_specified=True,
+                                  secure=False, expires=None, discard=True,
+                                  comment=None, comment_url=None,
+                                  rest={'HttpOnly': None}, rfc2109=False)
+            cj.set_cookie(ck)
+        self.browser.set_cookiejar(cj)
+
         if start_url:
             self.go(start_url)
 
@@ -268,6 +286,9 @@ def main():
     parser.add_option("--html", action="store",
                       dest="html_validator", default="no",
                       help="html validation method (use no to disable)")
+    parser.add_option("--cookie", action="store",
+                      dest="cookie", default=None,
+                      help="cookie (name=value)")
     parser.add_option("-o", "--once", action="store_true",
                       dest="once", default=True,
                       help="visit only once")
