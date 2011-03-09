@@ -1,0 +1,7 @@
+A bot which can randomly check a website links and forms for errors.
+
+python proto.py http://example.com
+python proto.py --html=w3c http://example.com
+
+
+load_test_proto : wip
